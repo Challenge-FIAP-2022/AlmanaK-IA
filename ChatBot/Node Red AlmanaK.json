@@ -1,0 +1,985 @@
+[{
+    "id": "5dc3fbed.27e7c4",
+    "type": "tab",
+    "label": "AlmanaK",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "378214d4.ca261c",
+    "type": "telegram receiver",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "bot": "67d3ff4b.bd0f8",
+    "saveDataDir": "",
+    "filterCommands": false,
+    "x": 110,
+    "y": 380,
+    "wires": [
+        ["aecdda26.b26e68", "8c7d5ac9.3ac0c8"],
+        []
+    ]
+}, {
+    "id": "aecdda26.b26e68",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Receiver Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 350,
+    "y": 220,
+    "wires": []
+}, {
+    "id": "1e4163c4.3ef83c",
+    "type": "change",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Prep. Voice",
+    "rules": [{
+        "t": "set",
+        "p": "params.session_id",
+        "pt": "msg",
+        "to": "payload.chatId",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "params.messageId",
+        "pt": "msg",
+        "to": "payload.messageId",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "params.type",
+        "pt": "msg",
+        "to": "payload.type",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "payload.weblink",
+        "tot": "msg"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 690,
+    "y": 320,
+    "wires": [
+        ["a5e2683c.689628", "7867acee.bc4674"]
+    ]
+}, {
+    "id": "9f731f74.fbcbd",
+    "type": "switch",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "property": "payload.type",
+    "propertyType": "msg",
+    "rules": [{
+        "t": "eq",
+        "v": "voice",
+        "vt": "str"
+    }, {
+        "t": "neq",
+        "v": "voice",
+        "vt": "str"
+    }],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 510,
+    "y": 340,
+    "wires": [
+        ["1e4163c4.3ef83c"],
+        ["14f3adf1.47f812"]
+    ]
+}, {
+    "id": "d3cbd349.56b04",
+    "type": "telegram sender",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "bot": "67d3ff4b.bd0f8",
+    "haserroroutput": false,
+    "outputs": 1,
+    "x": 1650,
+    "y": 580,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "887e0340.9baa6",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Not voice",
+    "func": "msg.payload = \n    'Posso apenas entender mensagens de voz.\\n'    \n    +'Favor me enviar nesse formato para que eu possa entender.';\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 890,
+    "y": 560,
+    "wires": [
+        ["dfe8e9a0.5b66f8", "2ef9e352.de278c"]
+    ]
+}, {
+    "id": "dfe8e9a0.5b66f8",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Text Received FN",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1110,
+    "y": 640,
+    "wires": []
+}, {
+    "id": "a5e2683c.689628",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Voice Received Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 930,
+    "y": 200,
+    "wires": []
+}, {
+    "id": "e4d1d29f.b7ea8",
+    "type": "watson-speech-to-text",
+    "z": "5dc3fbed.27e7c4",
+    "name": "STT Port",
+    "alternatives": 1,
+    "speakerlabels": true,
+    "smartformatting": false,
+    "lang": "pt-BR",
+    "langhidden": "pt-BR",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "custom-weight": "0.5",
+    "band": "BroadbandModel",
+    "bandhidden": "",
+    "keywords": "",
+    "keywords-threshold": "0.5",
+    "word-confidence": false,
+    "password": "",
+    "apikey": "TJUvqW20jvSroPIy93orQepjtRyflt7LH7tiZL1OmgoT",
+    "payload-response": true,
+    "streaming-mode": false,
+    "streaming-mute": true,
+    "auto-connect": false,
+    "discard-listening": false,
+    "disable-precheck": false,
+    "service-endpoint": "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/5fb82473-fa2f-488a-9713-6285112950ed",
+    "x": 1540,
+    "y": 280,
+    "wires": [
+        ["47c561d4.75145", "c6bda07e.64c4c"]
+    ]
+}, {
+    "id": "2ef9e352.de278c",
+    "type": "watson-text-to-speech",
+    "z": "5dc3fbed.27e7c4",
+    "name": "TTS",
+    "lang": "pt-BR",
+    "langhidden": "pt-BR",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "voice": "pt-BR_IsabelaVoice",
+    "voicehidden": "",
+    "format": "audio/wav",
+    "password": "",
+    "apikey": "Ag9667g43j3R89gNzXASTVbSajQPmqR4mXHGc949-3Lm",
+    "payload-response": false,
+    "service-endpoint": "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/008bbc42-3754-4a91-b7ee-1a624c992930",
+    "x": 1070,
+    "y": 560,
+    "wires": [
+        ["92e19d44.fe854", "cc506a18.3d8598"]
+    ]
+}, {
+    "id": "47c561d4.75145",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Voice STT Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1760,
+    "y": 360,
+    "wires": []
+}, {
+    "id": "7867acee.bc4674",
+    "type": "watson-language-translator-identify",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "service-endpoint": "https://api.us-south.language-translator.watson.cloud.ibm.com/instances/36791ed9-35dc-4e9b-85ba-51f1f3dcb374",
+    "x": 910,
+    "y": 320,
+    "wires": [
+        ["f960d918.a42b88", "3f5365d5.37e69a"]
+    ]
+}, {
+    "id": "f960d918.a42b88",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Language Ident. Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1180,
+    "y": 400,
+    "wires": []
+}, {
+    "id": "3f5365d5.37e69a",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Check Language",
+    "func": "let l = '';\nlet c = '';\n\nif (msg.lang.language != \"pt\") {\n    for(let i = 0; i <= 10; i++) {\n        l = msg.languages[i].language;\n        c = msg.languages[i].confidence;\n        if(l != \"pt\" && c > 0.5) {\n           break;\n        } else if(l == \"pt\" && c >= 0.02 && i != 0) {\n           l = \"pt\";\n           break;\n        }\n    }\n} else {\n   l = msg.lang.language;\n}\n\nmsg.lang.language = l;\nmsg.lang.confidence = c;\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1160,
+    "y": 320,
+    "wires": [
+        ["8e23a4ae.b58a08", "6b75ce42.9fbf5"]
+    ]
+}, {
+    "id": "8e23a4ae.b58a08",
+    "type": "switch",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "property": "lang.language",
+    "propertyType": "msg",
+    "rules": [{
+        "t": "eq",
+        "v": "pt",
+        "vt": "str"
+    }, {
+        "t": "neq",
+        "v": "pt",
+        "vt": "str"
+    }],
+    "checkall": "false",
+    "repair": false,
+    "outputs": 2,
+    "x": 1370,
+    "y": 320,
+    "wires": [
+        ["e4d1d29f.b7ea8"],
+        ["5c854884.af6478"]
+    ]
+}, {
+    "id": "6b75ce42.9fbf5",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Voice Check Lang. FN Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1460,
+    "y": 200,
+    "wires": []
+}, {
+    "id": "5c854884.af6478",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Response Others lang.",
+    "func": "msg.payload = \n    'Posso apenas entender mensagens em português.\\n'    \n    +'Favor me enviar nesse idioma para que eu possa entender.';\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1780,
+    "y": 440,
+    "wires": [
+        ["2f4b51d5.7406de"]
+    ]
+}, {
+    "id": "45cc9184.41645",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Voice Final Prep Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 2880,
+    "y": 400,
+    "wires": []
+}, {
+    "id": "c6bda07e.64c4c",
+    "type": "watson-assistant-v2",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Almanak Bot",
+    "service-endpoint": "https://api.us-south.assistant.watson.cloud.ibm.com/instances/69a1a9db-4a21-4620-86aa-bfbf302851f7",
+    "assistant_id": "fcde3584-5902-4a3a-a1c0-6a962b74cfe5",
+    "debug": false,
+    "restart": true,
+    "return_context": true,
+    "alternate_intents": false,
+    "multisession": true,
+    "timeout": "",
+    "optout-learning": false,
+    "persist-session-id": true,
+    "x": 1730,
+    "y": 280,
+    "wires": [
+        ["1e5c63d3.afdcfc", "f8bba65a.599ed8"]
+    ]
+}, {
+    "id": "1e5c63d3.afdcfc",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "WA Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1960,
+    "y": 200,
+    "wires": []
+}, {
+    "id": "14f3adf1.47f812",
+    "type": "change",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Prep. Voice",
+    "rules": [{
+        "t": "set",
+        "p": "params.session_id",
+        "pt": "msg",
+        "to": "payload.chatId",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "params.messageId",
+        "pt": "msg",
+        "to": "payload.messageId",
+        "tot": "msg"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 690,
+    "y": 560,
+    "wires": [
+        ["887e0340.9baa6", "9dde8efe.ccaea"]
+    ]
+}, {
+    "id": "92e19d44.fe854",
+    "type": "change",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Prep. Response",
+    "rules": [{
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "{}",
+        "tot": "json"
+    }, {
+        "t": "set",
+        "p": "payload.chatId",
+        "pt": "msg",
+        "to": "params.session_id",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "payload.content",
+        "pt": "msg",
+        "to": "speech",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "payload.type",
+        "pt": "msg",
+        "to": "voice",
+        "tot": "str"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1260,
+    "y": 560,
+    "wires": [
+        ["2c8b452c.a8751a", "2dfa7a2c.f86ca6"]
+    ]
+}, {
+    "id": "cc506a18.3d8598",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Text TTS Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1270,
+    "y": 480,
+    "wires": []
+}, {
+    "id": "2c8b452c.a8751a",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Text Final Prep Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1510,
+    "y": 640,
+    "wires": []
+}, {
+    "id": "2f4b51d5.7406de",
+    "type": "watson-text-to-speech",
+    "z": "5dc3fbed.27e7c4",
+    "name": "TTS",
+    "lang": "pt-BR",
+    "langhidden": "pt-BR",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "voice": "pt-BR_IsabelaVoice",
+    "voicehidden": "",
+    "format": "audio/wav",
+    "password": "",
+    "apikey": "Ag9667g43j3R89gNzXASTVbSajQPmqR4mXHGc949-3Lm",
+    "payload-response": false,
+    "service-endpoint": "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/008bbc42-3754-4a91-b7ee-1a624c992930",
+    "x": 2430,
+    "y": 320,
+    "wires": [
+        ["4dcea383.f79c6c", "df9b35d9.e6ae58"]
+    ]
+}, {
+    "id": "df9b35d9.e6ae58",
+    "type": "change",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Prep. Response",
+    "rules": [{
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "{}",
+        "tot": "json"
+    }, {
+        "t": "set",
+        "p": "payload.chatId",
+        "pt": "msg",
+        "to": "params.session_id",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "payload.content",
+        "pt": "msg",
+        "to": "speech",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "payload.type",
+        "pt": "msg",
+        "to": "voice",
+        "tot": "str"
+    }, {
+        "t": "set",
+        "p": "payload.busca",
+        "pt": "msg",
+        "to": "busca",
+        "tot": "msg"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 2620,
+    "y": 320,
+    "wires": [
+        ["45cc9184.41645", "2fee5cb5.b957e4", "d24f54d3.f7dd78"]
+    ]
+}, {
+    "id": "4dcea383.f79c6c",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Voice TTS Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 2660,
+    "y": 440,
+    "wires": []
+}, {
+    "id": "f8bba65a.599ed8",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Ajuste Busca",
+    "func": "function formatPayload(payload){\n    let formattedPayload = {};\n    payload.output.entities.forEach(entity => {\n        let entityData = formattedPayload[entity.entity];   \n        if(entityData){\n            entityData.push(entity.value);\n            formattedPayload[entity.entity] = entityData;\n        }\n        else{\n            formattedPayload[entity.entity] = [entity.value];\n        }\n    })\n    return formattedPayload;\n}\n\nmsg.busca = formatPayload(msg.payload)\n\nmsg.payload = \n    'Ok, entendido, só um segundo enquanto ajusto os filtros. '    \n    +'Se estiver tudo certo, basta clickar no botão buscar, '\n    +' caso contrário pode enviar outro áudio pra mim.';\n\nreturn msg",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1930,
+    "y": 280,
+    "wires": [
+        ["236d94a7.ccb89c", "d4158c03.acc4f"]
+    ]
+}, {
+    "id": "236d94a7.ccb89c",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Adj Busca Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 2210,
+    "y": 200,
+    "wires": []
+}, {
+    "id": "2fee5cb5.b957e4",
+    "type": "json",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "property": "payload.busca",
+    "action": "",
+    "pretty": false,
+    "x": 2810,
+    "y": 260,
+    "wires": [
+        ["e02a1be8.24ccb8"]
+    ]
+}, {
+    "id": "e02a1be8.24ccb8",
+    "type": "change",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "rules": [{
+        "t": "set",
+        "p": "payload.content",
+        "pt": "msg",
+        "to": "msg.payload.busca",
+        "tot": "msg"
+    }, {
+        "t": "set",
+        "p": "payload.type",
+        "pt": "msg",
+        "to": "message",
+        "tot": "str"
+    }],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 3000,
+    "y": 260,
+    "wires": [
+        ["d24f54d3.f7dd78"]
+    ]
+}, {
+    "id": "9d8109db.ecc8a8",
+    "type": "http in",
+    "z": "5dc3fbed.27e7c4",
+    "name": "HTTP Endpoint",
+    "url": "/chatbot/busca",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 120,
+    "y": 300,
+    "wires": [
+        ["aecdda26.b26e68", "59572aa4.932014"]
+    ]
+}, {
+    "id": "59572aa4.932014",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Origin",
+    "func": "msg.origin = 'http'\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 330,
+    "y": 300,
+    "wires": [
+        ["9f731f74.fbcbd"]
+    ]
+}, {
+    "id": "8c7d5ac9.3ac0c8",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Origin",
+    "func": "msg.origin = 'telegram'\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 320,
+    "y": 380,
+    "wires": [
+        ["9f731f74.fbcbd"]
+    ]
+}, {
+    "id": "9dde8efe.ccaea",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "Text Received Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 930,
+    "y": 480,
+    "wires": []
+}, {
+    "id": "2dfa7a2c.f86ca6",
+    "type": "switch",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "property": "origin",
+    "propertyType": "msg",
+    "rules": [{
+        "t": "eq",
+        "v": "http",
+        "vt": "str"
+    }, {
+        "t": "neq",
+        "v": "http",
+        "vt": "str"
+    }],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 1450,
+    "y": 560,
+    "wires": [
+        ["a3cf54d2.04ce48"],
+        ["d3cbd349.56b04"]
+    ]
+}, {
+    "id": "a3cf54d2.04ce48",
+    "type": "http response",
+    "z": "5dc3fbed.27e7c4",
+    "name": "HTTP EndPoint",
+    "statusCode": "",
+    "headers": {},
+    "x": 1640,
+    "y": 540,
+    "wires": []
+}, {
+    "id": "5139cb81.3a8064",
+    "type": "telegram sender",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "bot": "67d3ff4b.bd0f8",
+    "haserroroutput": false,
+    "outputs": 1,
+    "x": 3390,
+    "y": 340,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "d24f54d3.f7dd78",
+    "type": "switch",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "property": "origin",
+    "propertyType": "msg",
+    "rules": [{
+        "t": "eq",
+        "v": "http",
+        "vt": "str"
+    }, {
+        "t": "neq",
+        "v": "http",
+        "vt": "str"
+    }],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 3190,
+    "y": 320,
+    "wires": [
+        ["8d9fc81e.448db8"],
+        ["5139cb81.3a8064"]
+    ]
+}, {
+    "id": "8d9fc81e.448db8",
+    "type": "http response",
+    "z": "5dc3fbed.27e7c4",
+    "name": "HTTP EndPoint",
+    "statusCode": "",
+    "headers": {},
+    "x": 3380,
+    "y": 300,
+    "wires": []
+}, {
+    "id": "42922fe9.afa35",
+    "type": "http response",
+    "z": "5dc3fbed.27e7c4",
+    "name": "HTTP EndPoint",
+    "statusCode": "",
+    "headers": {
+        "content-type": "application/json"
+    },
+    "x": 2540,
+    "y": 240,
+    "wires": []
+}, {
+    "id": "d4158c03.acc4f",
+    "type": "switch",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "property": "origin",
+    "propertyType": "msg",
+    "rules": [{
+        "t": "eq",
+        "v": "http",
+        "vt": "str"
+    }, {
+        "t": "neq",
+        "v": "http",
+        "vt": "str"
+    }],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 2130,
+    "y": 280,
+    "wires": [
+        ["893d6fec.0832e"],
+        ["2f4b51d5.7406de"]
+    ]
+}, {
+    "id": "9a00aee7.fd867",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "func": "msg.origin = 'http'\nmsg.params = {}\nmsg.params.session_id = null;\nmsg.payload = \n    'Estou em 5 pessoa e todas maior de idade. '    \n    +'Gostariamos de um jogo com bebidas e cartas';\n    \n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1320,
+    "y": 100,
+    "wires": [
+        ["757411a.d797cf", "c6bda07e.64c4c"]
+    ]
+}, {
+    "id": "9c441f3c.a96cc",
+    "type": "http in",
+    "z": "5dc3fbed.27e7c4",
+    "name": "HTTP Endpoint",
+    "url": "/chatbot/teste",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 1120,
+    "y": 100,
+    "wires": [
+        ["9a00aee7.fd867", "3c513e67.160212"]
+    ]
+}, {
+    "id": "3c513e67.160212",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1190,
+    "y": 20,
+    "wires": []
+}, {
+    "id": "757411a.d797cf",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1470,
+    "y": 20,
+    "wires": []
+}, {
+    "id": "893d6fec.0832e",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Ajuste Busca",
+    "func": "msg.response = msg.payload\nmsg.payload = {}\nmsg.payload.text = msg.response\nmsg.payload.busca = msg.busca\nreturn msg",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 2310,
+    "y": 240,
+    "wires": [
+        ["42922fe9.afa35", "dc678a5d.b79aa8"]
+    ]
+}, {
+    "id": "dc678a5d.b79aa8",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "FN Adj Busca Debugger",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 2570,
+    "y": 180,
+    "wires": []
+}, {
+    "id": "3a516169.1d87ae",
+    "type": "http in",
+    "z": "5dc3fbed.27e7c4",
+    "name": "HTTP Endpoint",
+    "url": "/chatbot/teste",
+    "method": "post",
+    "upload": true,
+    "swaggerDoc": "",
+    "x": 1120,
+    "y": 140,
+    "wires": [
+        ["7a89e972.c01ad8"]
+    ]
+}, {
+    "id": "7a89e972.c01ad8",
+    "type": "function",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "func": "msg.origin = 'http'\nmsg.params = {}\nmsg.params.session_id = null;\nmsg.payload = msg.req.body.texto\n    \n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1320,
+    "y": 140,
+    "wires": [
+        ["c6bda07e.64c4c", "ccc399b.f81f468"]
+    ]
+}, {
+    "id": "ccc399b.f81f468",
+    "type": "debug",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1530,
+    "y": 100,
+    "wires": []
+}, {
+    "id": "67d3ff4b.bd0f8",
+    "type": "telegram bot",
+    "botname": "AlmanaKFIAPbot",
+    "usernames": "",
+    "chatids": "",
+    "baseapiurl": "",
+    "updatemode": "polling",
+    "pollinterval": "300",
+    "usesocks": false,
+    "sockshost": "",
+    "socksport": "6667",
+    "socksusername": "anonymous",
+    "sockspassword": "",
+    "bothost": "",
+    "botpath": "",
+    "localbotport": "8443",
+    "publicbotport": "8443",
+    "privatekey": "",
+    "certificate": "",
+    "useselfsignedcertificate": false,
+    "sslterminated": false,
+    "verboselogging": false
+}]
