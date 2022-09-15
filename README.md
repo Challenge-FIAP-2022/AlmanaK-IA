@@ -25,7 +25,7 @@ Nessa etapa do projeto, estamos usando as funcionalidades de um chatbot para que
 <br>
 
 ## Chatbot
-Todos os arquivos de chatbot podem ser encontrados na pasta com o mesmo nome. Nela irá constar o Json com o <a href="/Chatbot/AlmanaK Watson Assistant.json">Watson Assistant</a>, json para os testes de endpoints realizados no <a href="/Chatbot/Insomnia_Request.json">Insominia</a> e o arquivo da arquitetura do endpoint feita em <a href="/Chatbot/Node Red AlmanaK.json">Nodered</a>.
+Todos os arquivos de chatbot podem ser encontrados na pasta com o mesmo nome. Nela irá constar o Json com o <a href="/Chatbot/AlmanaK Watson Assistant.json">Watson Assistant</a>, json para os testes de endpoints realizados no <a href="/Chatbot/Insomnia_Request.json">Insomnia</a> e o arquivo da arquitetura do endpoint feita em <a href="/Chatbot/Node Red AlmanaK.json">Node-Red</a>.
 
 Segue o link para o teste default do endpoint:
 
