@@ -62,3 +62,12 @@ Como resposta, é esperado um JSON conforme segue:
 ## Telegram
 
 Para os demais testes e integração por voz, recomendamos que a conversa seja endereçada via telegram com o nosso chatbot de nome @AlmanaKFIAPbot ou acessando o link https://t.me/AlmanaKFIAPbot.
+<hr>
+<br>
+
+## Link do vídeo do Youtube
+Para acessar o vídeo de explicação do funcionamento do chatbot e integração com o aplicativo mobile, acesse o link a seguir:
+https://youtu.be/JC5Nne9wezI
+<hr>
+<br>
+
