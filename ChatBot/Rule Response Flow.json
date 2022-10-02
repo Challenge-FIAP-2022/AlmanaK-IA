@@ -1,0 +1,472 @@
+[{
+    "id": "94b847a7.d2c4d8",
+    "type": "tab",
+    "label": "Rule Response Flow",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "37fdff63.77fab",
+    "type": "watson-assistant-v2",
+    "z": "94b847a7.d2c4d8",
+    "name": "AlmanaK Duvidas Chatbot",
+    "service-endpoint": "https://api.us-south.assistant.watson.cloud.ibm.com/instances/69a1a9db-4a21-4620-86aa-bfbf302851f7",
+    "assistant_id": "285a2a67-dd1b-4d25-b6c4-077b6e762359",
+    "debug": false,
+    "restart": false,
+    "return_context": false,
+    "alternate_intents": false,
+    "multisession": true,
+    "timeout": "",
+    "optout-learning": false,
+    "persist-session-id": false,
+    "x": 880,
+    "y": 200,
+    "wires": [
+        ["8ffc5193.258ad", "63054acb.6ec004"]
+    ]
+}, {
+    "id": "cf374b94.7567a8",
+    "type": "inject",
+    "z": "94b847a7.d2c4d8",
+    "name": "",
+    "props": [{
+        "p": "payload"
+    }, {
+        "p": "msg.params.session_id",
+        "v": "null",
+        "vt": "json"
+    }, {
+        "p": "jogo",
+        "v": "1",
+        "vt": "str"
+    }, {
+        "p": "fonte",
+        "v": "inject",
+        "vt": "str"
+    }],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "Como se da inicio ao jogo de taco?",
+    "payloadType": "str",
+    "x": 650,
+    "y": 80,
+    "wires": [
+        ["8991fae3.2cd288", "37fdff63.77fab"]
+    ]
+}, {
+    "id": "8991fae3.2cd288",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "Inject",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 810,
+    "y": 80,
+    "wires": []
+}, {
+    "id": "8ffc5193.258ad",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "Almanak Duvidas Chatbot",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1170,
+    "y": 280,
+    "wires": []
+}, {
+    "id": "63054acb.6ec004",
+    "type": "function",
+    "z": "94b847a7.d2c4d8",
+    "name": "Chatbot Adj",
+    "func": "function formatPayloadEntitites(payload){\n    let formattedPayload = {};\n    payload.output.entities.forEach(entity => {\n        let entityData = formattedPayload[entity.entity];   \n        if(entityData){\n            entityData.push(entity.value);\n            formattedPayload[entity.entity] = entityData;\n        }\n        else{\n            formattedPayload[entity.entity] = [entity.value];\n        }\n    })\n    return formattedPayload;\n}\n\nfunction formatPayloadIntents(payload){\n    let formattedPayload = {};\n    payload.output.intents.forEach(intent => {\n\n        formattedPayload = [intent.intent];\n\n    })\n    return formattedPayload;\n}\n\nmsg.busca = {}\n\nmsg.busca.intents = formatPayloadIntents(msg.payload)\nmsg.busca.entities = formatPayloadEntitites(msg.payload)\n\nmsg.payload = msg.busca\n\ndelete msg.busca\n\nreturn msg",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1130,
+    "y": 200,
+    "wires": [
+        ["c165ea5b.77a8d8", "12710d61.1188d3"]
+    ]
+}, {
+    "id": "c165ea5b.77a8d8",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "Chatbot Adj",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1330,
+    "y": 120,
+    "wires": []
+}, {
+    "id": "12710d61.1188d3",
+    "type": "http request",
+    "z": "94b847a7.d2c4d8",
+    "name": "Http Regra",
+    "method": "POST",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "https://almanak-fiap.herokuapp.com/api/regra/resposta/{{{jogo}}}",
+    "tls": "",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "x": 1330,
+    "y": 200,
+    "wires": [
+        ["2cabba00.51c2d6", "a4462935.94bf68"]
+    ]
+}, {
+    "id": "2cabba00.51c2d6",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "Http Regra",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1530,
+    "y": 280,
+    "wires": []
+}, {
+    "id": "a4462935.94bf68",
+    "type": "function",
+    "z": "94b847a7.d2c4d8",
+    "name": "Http Regra Adj",
+    "func": "msg.size = msg.payload.length\n\nlet resposta = ''\n\nfor(var i = 0; i < msg.payload.length; i++){\n    resposta += msg.payload[i].desc\n}\n\nmsg.payload = resposta\n\nreturn msg",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1540,
+    "y": 200,
+    "wires": [
+        ["25a7415b.6f844e", "9b2d0252.b5da4"]
+    ]
+}, {
+    "id": "25a7415b.6f844e",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "Http Regra Adj",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1760,
+    "y": 120,
+    "wires": []
+}, {
+    "id": "94cf322a.c7664",
+    "type": "function",
+    "z": "94b847a7.d2c4d8",
+    "name": "TTS Adj",
+    "func": "msg.payload = msg.speech\n\n\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1900,
+    "y": 200,
+    "wires": [
+        ["5549e24e.405c7c", "82468014.9acf2"]
+    ]
+}, {
+    "id": "e74c3aac.60d658",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "TTS",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1890,
+    "y": 280,
+    "wires": []
+}, {
+    "id": "5549e24e.405c7c",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "TTS Adj",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 2080,
+    "y": 120,
+    "wires": []
+}, {
+    "id": "9b2d0252.b5da4",
+    "type": "watson-text-to-speech",
+    "z": "94b847a7.d2c4d8",
+    "name": "TTS",
+    "lang": "pt-BR",
+    "langhidden": "pt-BR",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "voice": "pt-BR_IsabelaVoice",
+    "voicehidden": "",
+    "format": "audio/wav",
+    "password": "",
+    "apikey": "Ag9667g43j3R89gNzXASTVbSajQPmqR4mXHGc949-3Lm",
+    "payload-response": false,
+    "service-endpoint": "https://api.us-south.text-to-speech.watson.cloud.ibm.com/instances/008bbc42-3754-4a91-b7ee-1a624c992930",
+    "x": 1730,
+    "y": 200,
+    "wires": [
+        ["94cf322a.c7664", "e74c3aac.60d658"]
+    ]
+}, {
+    "id": "4c813506.7ee2dc",
+    "type": "http in",
+    "z": "94b847a7.d2c4d8",
+    "name": "[GET] Duvidas Endpoint",
+    "url": "/api/chatbot/duvidas/:id",
+    "method": "get",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 200,
+    "y": 200,
+    "wires": [
+        ["497aaf3e.646ca", "b38c796d.3c36f8"]
+    ]
+}, {
+    "id": "497aaf3e.646ca",
+    "type": "function",
+    "z": "94b847a7.d2c4d8",
+    "name": "",
+    "func": "msg.payload = 'Como se da inicio ao jogo de taco?'\n\nmsg.params = {}\nmsg.params.session_id = null\n\nmsg.fonte = 'http'\n\nmsg.jogo = msg.req.params.id\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 460,
+    "y": 200,
+    "wires": [
+        ["3bc43783.2974c8", "37fdff63.77fab"]
+    ]
+}, {
+    "id": "b38c796d.3c36f8",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "GET",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 450,
+    "y": 120,
+    "wires": []
+}, {
+    "id": "3bc43783.2974c8",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "GET Adj",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 620,
+    "y": 260,
+    "wires": []
+}, {
+    "id": "82468014.9acf2",
+    "type": "switch",
+    "z": "94b847a7.d2c4d8",
+    "name": "Filtro Fonte",
+    "property": "fonte",
+    "propertyType": "msg",
+    "rules": [{
+        "t": "eq",
+        "v": "http",
+        "vt": "str"
+    }, {
+        "t": "else"
+    }],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 2,
+    "x": 2090,
+    "y": 200,
+    "wires": [
+        ["daf2f0c7.05447"],
+        []
+    ]
+}, {
+    "id": "daf2f0c7.05447",
+    "type": "http response",
+    "z": "94b847a7.d2c4d8",
+    "name": "Duvidas Endpoint",
+    "statusCode": "",
+    "headers": {},
+    "x": 2310,
+    "y": 160,
+    "wires": []
+}, {
+    "id": "769a7c5c.e5a744",
+    "type": "play audio",
+    "z": "94b847a7.d2c4d8",
+    "name": "",
+    "voice": "",
+    "x": 2290,
+    "y": 240,
+    "wires": []
+}, {
+    "id": "6394750c.cfa01c",
+    "type": "http in",
+    "z": "94b847a7.d2c4d8",
+    "name": "[POST] Duvidas Endpoint",
+    "url": "/api/chatbot/duvidas/:id",
+    "method": "post",
+    "upload": true,
+    "swaggerDoc": "",
+    "x": 210,
+    "y": 340,
+    "wires": [
+        ["6514bdd2.1f6424", "94075b25.7b19e8"]
+    ]
+}, {
+    "id": "6514bdd2.1f6424",
+    "type": "function",
+    "z": "94b847a7.d2c4d8",
+    "name": "",
+    "func": "msg.params = {}\nmsg.params.session_id = null\n\nmsg.fonte = 'http'\n\nmsg.jogo = msg.req.params.id\n\nmsg.headers={\n    \"Content-Type\": \"audio/wav\",\n}\nmsg['data-binary']={\n    \"@\":msg.payload\n}\n\nmsg.payload = 'Como se da inicio ao jogo de taco?'\n\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 460,
+    "y": 340,
+    "wires": [
+        ["f8d8ffe.2c95b", "ef5cdab4.676658"]
+    ]
+}, {
+    "id": "94075b25.7b19e8",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "POST",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 450,
+    "y": 420,
+    "wires": []
+}, {
+    "id": "f8d8ffe.2c95b",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "POST Adj",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 640,
+    "y": 420,
+    "wires": []
+}, {
+    "id": "bafa6e43.26f44",
+    "type": "debug",
+    "z": "94b847a7.d2c4d8",
+    "name": "STT Port",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 840,
+    "y": 420,
+    "wires": []
+}, {
+    "id": "ef5cdab4.676658",
+    "type": "watson-speech-to-text",
+    "z": "94b847a7.d2c4d8",
+    "name": "STT Port",
+    "alternatives": 1,
+    "speakerlabels": true,
+    "smartformatting": false,
+    "lang": "pt-BR",
+    "langhidden": "pt-BR",
+    "langcustom": "NoCustomisationSetting",
+    "langcustomhidden": "",
+    "custom-weight": "0.5",
+    "band": "BroadbandModel",
+    "bandhidden": "",
+    "keywords": "",
+    "keywords-threshold": "0.5",
+    "word-confidence": false,
+    "password": "",
+    "apikey": "TJUvqW20jvSroPIy93orQepjtRyflt7LH7tiZL1OmgoT",
+    "payload-response": true,
+    "streaming-mode": false,
+    "streaming-mute": true,
+    "auto-connect": false,
+    "discard-listening": false,
+    "disable-precheck": false,
+    "service-endpoint": "https://api.us-south.speech-to-text.watson.cloud.ibm.com/instances/5fb82473-fa2f-488a-9713-6285112950ed",
+    "x": 640,
+    "y": 340,
+    "wires": [
+        ["37fdff63.77fab"]
+    ]
+}]

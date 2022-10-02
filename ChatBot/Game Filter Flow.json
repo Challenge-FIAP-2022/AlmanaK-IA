@@ -1,23 +1,9 @@
 [{
     "id": "5dc3fbed.27e7c4",
     "type": "tab",
-    "label": "AlmanaK",
+    "label": "Game Filter Flow",
     "disabled": false,
     "info": ""
-}, {
-    "id": "378214d4.ca261c",
-    "type": "telegram receiver",
-    "z": "5dc3fbed.27e7c4",
-    "name": "",
-    "bot": "67d3ff4b.bd0f8",
-    "saveDataDir": "",
-    "filterCommands": false,
-    "x": 110,
-    "y": 380,
-    "wires": [
-        ["aecdda26.b26e68", "8c7d5ac9.3ac0c8"],
-        []
-    ]
 }, {
     "id": "aecdda26.b26e68",
     "type": "debug",
@@ -32,7 +18,7 @@
     "statusVal": "",
     "statusType": "auto",
     "x": 350,
-    "y": 220,
+    "y": 240,
     "wires": []
 }, {
     "id": "1e4163c4.3ef83c",
@@ -98,19 +84,6 @@
     "wires": [
         ["1e4163c4.3ef83c"],
         ["14f3adf1.47f812"]
-    ]
-}, {
-    "id": "d3cbd349.56b04",
-    "type": "telegram sender",
-    "z": "5dc3fbed.27e7c4",
-    "name": "",
-    "bot": "67d3ff4b.bd0f8",
-    "haserroroutput": false,
-    "outputs": 1,
-    "x": 1650,
-    "y": 580,
-    "wires": [
-        []
     ]
 }, {
     "id": "887e0340.9baa6",
@@ -638,36 +611,6 @@
         ["d24f54d3.f7dd78"]
     ]
 }, {
-    "id": "9d8109db.ecc8a8",
-    "type": "http in",
-    "z": "5dc3fbed.27e7c4",
-    "name": "HTTP Endpoint",
-    "url": "/chatbot/busca",
-    "method": "get",
-    "upload": false,
-    "swaggerDoc": "",
-    "x": 120,
-    "y": 300,
-    "wires": [
-        ["aecdda26.b26e68", "59572aa4.932014"]
-    ]
-}, {
-    "id": "59572aa4.932014",
-    "type": "function",
-    "z": "5dc3fbed.27e7c4",
-    "name": "FN Origin",
-    "func": "msg.origin = 'http'\nreturn msg;",
-    "outputs": 1,
-    "noerr": 0,
-    "initialize": "",
-    "finalize": "",
-    "libs": [],
-    "x": 330,
-    "y": 300,
-    "wires": [
-        ["9f731f74.fbcbd"]
-    ]
-}, {
     "id": "8c7d5ac9.3ac0c8",
     "type": "function",
     "z": "5dc3fbed.27e7c4",
@@ -679,7 +622,7 @@
     "finalize": "",
     "libs": [],
     "x": 320,
-    "y": 380,
+    "y": 340,
     "wires": [
         ["9f731f74.fbcbd"]
     ]
@@ -734,19 +677,6 @@
     "x": 1640,
     "y": 540,
     "wires": []
-}, {
-    "id": "5139cb81.3a8064",
-    "type": "telegram sender",
-    "z": "5dc3fbed.27e7c4",
-    "name": "",
-    "bot": "67d3ff4b.bd0f8",
-    "haserroroutput": false,
-    "outputs": 1,
-    "x": 3390,
-    "y": 340,
-    "wires": [
-        []
-    ]
 }, {
     "id": "d24f54d3.f7dd78",
     "type": "switch",
@@ -959,6 +889,46 @@
     "x": 1530,
     "y": 100,
     "wires": []
+}, {
+    "id": "378214d4.ca261c",
+    "type": "telegram receiver",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "bot": "67d3ff4b.bd0f8",
+    "saveDataDir": "",
+    "filterCommands": false,
+    "x": 110,
+    "y": 340,
+    "wires": [
+        ["aecdda26.b26e68", "8c7d5ac9.3ac0c8"],
+        []
+    ]
+}, {
+    "id": "d3cbd349.56b04",
+    "type": "telegram sender",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "bot": "67d3ff4b.bd0f8",
+    "haserroroutput": false,
+    "outputs": 1,
+    "x": 1650,
+    "y": 580,
+    "wires": [
+        []
+    ]
+}, {
+    "id": "5139cb81.3a8064",
+    "type": "telegram sender",
+    "z": "5dc3fbed.27e7c4",
+    "name": "",
+    "bot": "67d3ff4b.bd0f8",
+    "haserroroutput": false,
+    "outputs": 1,
+    "x": 3390,
+    "y": 340,
+    "wires": [
+        []
+    ]
 }, {
     "id": "67d3ff4b.bd0f8",
     "type": "telegram bot",

@@ -1,0 +1,149 @@
+[{
+    "id": "de88591a.bee958",
+    "type": "tab",
+    "label": "Rules Category Flow",
+    "disabled": false,
+    "info": ""
+}, {
+    "id": "32b5d305.588bdc",
+    "type": "http in",
+    "z": "de88591a.bee958",
+    "name": "Rules Endpoint",
+    "url": "/chatbot/rules",
+    "method": "post",
+    "upload": false,
+    "swaggerDoc": "",
+    "x": 100,
+    "y": 140,
+    "wires": [
+        ["f57aec4b.d86f7", "f12a9a19.2853a8"]
+    ]
+}, {
+    "id": "9a8feda6.634f1",
+    "type": "function",
+    "z": "de88591a.bee958",
+    "name": "FN Ajuste Busca",
+    "func": "function formatPayloadEntitites(payload){\n    let formattedPayload = {};\n    payload.output.entities.forEach(entity => {\n        let entityData = formattedPayload[entity.entity];   \n        if(entityData){\n            entityData.push(entity.value);\n            formattedPayload[entity.entity] = entityData;\n        }\n        else{\n            formattedPayload[entity.entity] = [entity.value];\n        }\n    })\n    return formattedPayload;\n}\n\nfunction formatPayloadIntents(payload){\n    let formattedPayload = {};\n    payload.output.intents.forEach(intent => {\n\n        formattedPayload = [intent.intent];\n\n    })\n    return formattedPayload;\n}\n\nmsg.busca = {}\n\nmsg.busca.intents = formatPayloadIntents(msg.payload)\nmsg.busca.entities = formatPayloadEntitites(msg.payload)\n\nmsg.payload = msg.busca\n\ndelete msg.busca\n\nreturn msg",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 930,
+    "y": 140,
+    "wires": [
+        ["f9789dea.10227", "9d176fae.7b111"]
+    ]
+}, {
+    "id": "f57aec4b.d86f7",
+    "type": "debug",
+    "z": "de88591a.bee958",
+    "name": "Request Debug",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 320,
+    "y": 60,
+    "wires": []
+}, {
+    "id": "fea7197f.cfa8b8",
+    "type": "debug",
+    "z": "de88591a.bee958",
+    "name": "WA Debug",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 910,
+    "y": 60,
+    "wires": []
+}, {
+    "id": "f9789dea.10227",
+    "type": "debug",
+    "z": "de88591a.bee958",
+    "name": "FN Adj Busca Debug",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 1200,
+    "y": 60,
+    "wires": []
+}, {
+    "id": "bb8f1daa.5d5e7",
+    "type": "debug",
+    "z": "de88591a.bee958",
+    "name": "FN Adj Busca Debug",
+    "active": false,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 580,
+    "y": 60,
+    "wires": []
+}, {
+    "id": "f12a9a19.2853a8",
+    "type": "function",
+    "z": "de88591a.bee958",
+    "name": "FN Ajuste Busca",
+    "func": "msg.params = {};\nmsg.params.session_id = null;\n\nreturn msg",
+    "outputs": 1,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 330,
+    "y": 140,
+    "wires": [
+        ["bb8f1daa.5d5e7", "2844aad6.205c16"]
+    ]
+}, {
+    "id": "2844aad6.205c16",
+    "type": "watson-assistant-v2",
+    "z": "de88591a.bee958",
+    "name": "AlmanaK Rules Classification Chatbot",
+    "service-endpoint": "https://api.us-south.assistant.watson.cloud.ibm.com/instances/69a1a9db-4a21-4620-86aa-bfbf302851f7",
+    "assistant_id": "285a2a67-dd1b-4d25-b6c4-077b6e762359",
+    "debug": false,
+    "restart": false,
+    "return_context": false,
+    "alternate_intents": false,
+    "multisession": true,
+    "timeout": "",
+    "optout-learning": false,
+    "persist-session-id": false,
+    "x": 630,
+    "y": 140,
+    "wires": [
+        ["fea7197f.cfa8b8", "9a8feda6.634f1"]
+    ]
+}, {
+    "id": "9d176fae.7b111",
+    "type": "http response",
+    "z": "de88591a.bee958",
+    "name": "Rules Responde",
+    "statusCode": "",
+    "headers": {
+        "content-type": "application/json"
+    },
+    "x": 1190,
+    "y": 140,
+    "wires": []
+}]
