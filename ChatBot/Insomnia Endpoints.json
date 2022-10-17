@@ -1,12 +1,12 @@
 {
     "_type": "export",
     "__export_format": 4,
-    "__export_date": "2022-09-07T15:02:21.647Z",
-    "__export_source": "insomnia.desktop.app:v2022.5.1",
+    "__export_date": "2022-10-02T04:56:55.710Z",
+    "__export_source": "insomnia.desktop.app:v2022.6.0",
     "resources": [{
         "_id": "req_40101725938a4625a28fc98e8b921737",
         "parentId": "fld_36434e708818491886af2cc57b34ab55",
-        "modified": 1662562902463,
+        "modified": 1664602655077,
         "created": 1662435665208,
         "url": "https://almanak.mybluemix.net/chatbot/teste",
         "name": "Default Message",
@@ -55,7 +55,7 @@
     }, {
         "_id": "req_242c7aea00ff482083f08bef32ea3ca7",
         "parentId": "fld_36434e708818491886af2cc57b34ab55",
-        "modified": 1662562917470,
+        "modified": 1664685293436,
         "created": 1662562600215,
         "url": "https://almanak.mybluemix.net/chatbot/teste",
         "name": "Custom Message",
@@ -82,6 +82,50 @@
         "settingFollowRedirects": "global",
         "_type": "request"
     }, {
+        "_id": "req_f564ff3f91a848f298fd9da1821b8b00",
+        "parentId": "fld_36434e708818491886af2cc57b34ab55",
+        "modified": 1664684817346,
+        "created": 1664683427297,
+        "url": "https://almanak.mybluemix.net/api/chatbot/duvidas/1",
+        "name": "Duvidas",
+        "description": "",
+        "method": "GET",
+        "body": {},
+        "parameters": [],
+        "headers": [],
+        "authentication": {},
+        "metaSortKey": -1662034097685,
+        "isPrivate": false,
+        "settingStoreCookies": true,
+        "settingSendCookies": true,
+        "settingDisableRenderRequestBody": false,
+        "settingEncodeUrl": true,
+        "settingRebuildPath": true,
+        "settingFollowRedirects": "global",
+        "_type": "request"
+    }, {
+        "_id": "req_f7c282b8b0184a8e94338cd24d35dc0e",
+        "parentId": "fld_36434e708818491886af2cc57b34ab55",
+        "modified": 1664685402532,
+        "created": 1664684822740,
+        "url": "https://almanak.mybluemix.net/api/chatbot/duvidas/1",
+        "name": "Duvidas",
+        "description": "",
+        "method": "POST",
+        "body": {},
+        "parameters": [],
+        "headers": [],
+        "authentication": {},
+        "metaSortKey": -1662034097672.5,
+        "isPrivate": false,
+        "settingStoreCookies": true,
+        "settingSendCookies": true,
+        "settingDisableRenderRequestBody": false,
+        "settingEncodeUrl": true,
+        "settingRebuildPath": true,
+        "settingFollowRedirects": "global",
+        "_type": "request"
+    }, {
         "_id": "env_3810c046be444164ae2709b84929268a",
         "parentId": "wrk_b12bfe8cbfae4defbcef45adcde7fbc1",
         "modified": 1661229061222,
@@ -96,10 +140,29 @@
     }, {
         "_id": "jar_a059d1a05dad4e06ba6a09edfbc4ae2b",
         "parentId": "wrk_b12bfe8cbfae4defbcef45adcde7fbc1",
-        "modified": 1661136938109,
+        "modified": 1664417191508,
         "created": 1661136938109,
         "name": "Default Jar",
-        "cookies": [],
+        "cookies": [{
+            "key": "MoodleSession",
+            "value": "7qfh9a0okaej06b3uohod6rlrj",
+            "domain": "on.fiap.com.br",
+            "path": "/",
+            "hostOnly": true,
+            "creation": "2022-09-12T04:25:30.853Z",
+            "lastAccessed": "2022-09-12T04:25:30.855Z",
+            "id": "4792927044416504"
+        }, {
+            "key": "JSESSIONID",
+            "value": "E027E3A53BEA8E8F644FC28CEBAF989F",
+            "domain": "localhost",
+            "path": "/",
+            "httpOnly": true,
+            "hostOnly": true,
+            "creation": "2022-09-29T02:06:31.502Z",
+            "lastAccessed": "2022-09-29T02:06:31.502Z",
+            "id": "7391330657034485"
+        }],
         "_type": "cookie_jar"
     }, {
         "_id": "spc_a02d2f6e646943348fb45b359b67bdbd",
@@ -113,7 +176,7 @@
     }, {
         "_id": "env_44bd20d3884c4176baada79bbbeb46ef",
         "parentId": "env_3810c046be444164ae2709b84929268a",
-        "modified": 1662324264145,
+        "modified": 1664679803236,
         "created": 1661229063872,
         "name": "almanak",
         "data": {
@@ -130,7 +193,7 @@
     }, {
         "_id": "env_24ee23c8ff5b412c8b687392f036a3a8",
         "parentId": "env_3810c046be444164ae2709b84929268a",
-        "modified": 1662324263090,
+        "modified": 1664653906379,
         "created": 1661277203427,
         "name": "localHost",
         "data": {
